@@ -12,6 +12,5 @@ pod 'BMBeaconManager', :git => 'https://github.com/Beaconmaker/BMBeaconManager.g
 ```
 
 ## Usage
-1. Use ```objective-c
-#import "BMBeaconManager.h"``` in your implementation files.
+1. Use ```#import "BMBeaconManager.h"``` in your implementation files.
 2. Reference of public methods and delegate callbacks can be found in the BMBeaconManager.h header file.
