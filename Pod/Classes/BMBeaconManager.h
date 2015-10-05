@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "UIAlertController+Blocks.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @import CoreLocation;
 
