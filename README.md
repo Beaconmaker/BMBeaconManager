@@ -18,13 +18,13 @@ pod 'BMBeaconManager', :git => 'https://github.com/Beaconmaker/BMBeaconManager.g
 ### Checking/Requesting Location Permissions
 - ```[BMBeaconManager canMonitorAndRangeBeaconsInForeground];```
 - ```[BMBeaconManager canMonitorBeaconsInBackground];```
-- ```[BMBeaconManager sharedManager] requestForegroundMonitoringAndRangingAuthorization]``` (requests for WhileInUse authorization and if user already denied it, show alert with deeplink to settings)
-- ```[BMBeaconManager sharedManager] requestBackgroundMonitoringAuthorization]``` (requests for Always authorization and if user already denied it, show alert with deeplink to settings)
+- ```[BMBeaconManager sharedManager] requestForegroundMonitoringAndRangingAuthorization];``` (requests for WhileInUse authorization and if user already denied it, show alert with deeplink to settings)
+- ```[BMBeaconManager sharedManager] requestBackgroundMonitoringAuthorization];``` (requests for Always authorization and if user already denied it, show alert with deeplink to settings)
 
 ### Monitoring/Ranging Beacons
-1. ```[BMBeaconManager sharedManager] setRegions:<<YOUR_ARRAY_OF_CL_REGIONS>>]```
-2. ```[BMBeaconManager sharedManager] startMonitoring]```;
-3. ```[BMBeaconManager sharedManager] startRanging]```;
+1. ```[BMBeaconManager sharedManager] setRegions:<<YOUR_ARRAY_OF_CL_REGIONS>>];```
+2. ```[BMBeaconManager sharedManager] startMonitoring];```
+3. ```[BMBeaconManager sharedManager] startRanging];```
 
 ### Delegate Callbacks
 1. Make your ViewController conform to the BMBeaconManager Delegate Protocol ```@interface YourViewController () <BMBeaconManagerDelegate>```
