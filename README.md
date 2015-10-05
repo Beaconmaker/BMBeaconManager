@@ -35,3 +35,8 @@ pod 'BMBeaconManager', :git => 'https://github.com/Beaconmaker/BMBeaconManager.g
 - (void)didExitRegion:(CLRegion *)region {}
 - (void)didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {}
 - (void)didRangeBeacons:(NSArray *)beacons {}```
+
+### Helper Methods
+1. ```[BMBeaconManager nearestBeacon:<<ARRAY_OF_CL_BEACONS>>];``` (returns the nearest beacon from an array of beacons)
+2. ```[BMBeaconManager furthestBeacon:<<ARRAY_OF_CL_BEACONS>>];``` (returns the furthest beacon from an array of beacons)
+3. ```[BMBeaconManager filterBeacons:<<ARRAY_OF_CL_BEACONS>> byMajor:<<MAJOR_NSNUMBER>> byMinor:<<MINOR_NSNUMBER>>];``` (returns an array of beacons filtered using major/minor)
