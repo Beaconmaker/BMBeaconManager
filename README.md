@@ -14,3 +14,24 @@ pod 'BMBeaconManager', :git => 'https://github.com/Beaconmaker/BMBeaconManager.g
 ## Usage
 1. Use ```#import "BMBeaconManager.h"``` in your implementation files.
 2. Reference of public methods and delegate callbacks can be found in the BMBeaconManager.h header file.
+
+### Checking/Requesting Location Permissions
+- ```[BMBeaconManager canMonitorAndRangeBeaconsInForeground];```
+- ```[BMBeaconManager canMonitorBeaconsInBackground];```
+- ```[BMBeaconManager sharedManager] requestForegroundMonitoringAndRangingAuthorization]``` (requests for WhileInUse authorization)
+- ```[BMBeaconManager sharedManager] requestBackgroundMonitoringAuthorization]``` (requests for Always authorization)
+
+### Monitoring/Ranging Beacons
+1. ```[BMBeaconManager sharedManager] setRegions:<<YOUR_ARRAY_OF_CL_REGIONS>>]```
+2. ```[BMBeaconManager sharedManager] startMonitoring]```;
+3. ```[BMBeaconManager sharedManager] startRanging]```;
+
+### Delegate Callbacks
+1. Make your ViewController conform to the BMBeaconManager Delegate Protocol ```@interface YourViewController () <BMBeaconManagerDelegate>```
+2. Implement delegate callback methods
+```
+- (void)didChangeAuthorizationStatus:(CLAuthorizationStatus)status {}
+- (void)didEnterRegion:(CLRegion *)region {}
+- (void)didExitRegion:(CLRegion *)region {}
+- (void)didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {}
+- (void)didRangeBeacons:(NSArray *)beacons {}```
