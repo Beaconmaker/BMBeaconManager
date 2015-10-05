@@ -18,8 +18,8 @@ pod 'BMBeaconManager', :git => 'https://github.com/Beaconmaker/BMBeaconManager.g
 ### Checking/Requesting Location Permissions
 - ```[BMBeaconManager canMonitorAndRangeBeaconsInForeground];```
 - ```[BMBeaconManager canMonitorBeaconsInBackground];```
-- ```[BMBeaconManager sharedManager] requestForegroundMonitoringAndRangingAuthorization]``` (requests for WhileInUse authorization)
-- ```[BMBeaconManager sharedManager] requestBackgroundMonitoringAuthorization]``` (requests for Always authorization)
+- ```[BMBeaconManager sharedManager] requestForegroundMonitoringAndRangingAuthorization]``` (requests for WhileInUse authorization and if user already denied it, show alert with deeplink to settings)
+- ```[BMBeaconManager sharedManager] requestBackgroundMonitoringAuthorization]``` (requests for Always authorization and if user already denied it, show alert with deeplink to settings)
 
 ### Monitoring/Ranging Beacons
 1. ```[BMBeaconManager sharedManager] setRegions:<<YOUR_ARRAY_OF_CL_REGIONS>>]```
