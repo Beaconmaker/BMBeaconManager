@@ -1,0 +1,25 @@
+{
+  "name": "BMBeaconManager",
+  "version": "0.1.0",
+  "summary": "A short description of BMBeaconManager.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/BMBeaconManager",
+  "license": "MIT",
+  "authors": {
+    "John Kueh": "john@beaconmaker.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/BMBeaconManager.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "BMBeaconManager": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

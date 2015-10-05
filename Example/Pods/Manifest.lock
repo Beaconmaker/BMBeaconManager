@@ -1,0 +1,14 @@
+PODS:
+  - BMBeaconManager (0.1.0)
+
+DEPENDENCIES:
+  - BMBeaconManager (from `../`)
+
+EXTERNAL SOURCES:
+  BMBeaconManager:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BMBeaconManager: 0d137b77194f99d149b04492130c42f432d887fe
+
+COCOAPODS: 0.38.0

@@ -1,0 +1,6 @@
+framework module Pods_BMBeaconManager_Tests {
+  umbrella header "Pods-BMBeaconManager_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

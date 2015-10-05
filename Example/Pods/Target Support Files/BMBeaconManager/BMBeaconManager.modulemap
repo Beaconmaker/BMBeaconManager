@@ -1,0 +1,6 @@
+framework module BMBeaconManager {
+  umbrella header "BMBeaconManager-umbrella.h"
+
+  export *
+  module * { export * }
+}
