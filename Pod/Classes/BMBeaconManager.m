@@ -273,8 +273,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         // The windows in the array are ordered from back to front by window level; thus,
         // the last window in the array is on top of all other app windows.
         for (UIWindow *window in [[UIApplication sharedApplication].windows reverseObjectEnumerator]) {
-            topController = window.rootViewController;
-            if (topController)
+            topViewController = window.rootViewController;
+            if (topViewController)
                 break;
         }
     }
