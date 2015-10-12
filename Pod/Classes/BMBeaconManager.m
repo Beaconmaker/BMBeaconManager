@@ -43,7 +43,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     NSSortDescriptor *accuracySortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"accuracy" ascending:YES];
     NSArray *sortedBeacons = [filteredBeacons sortedArrayUsingDescriptors:@[accuracySortDescriptor]];
-
+    
     CLBeacon *furthestBeacon = [sortedBeacons lastObject];
     DDLogVerbose(@"Filtered Beacons: Nearest Beacon #%@/%@ Distance: %.2f Signal: %ld", furthestBeacon.major, furthestBeacon.minor, furthestBeacon.accuracy, (long) furthestBeacon.rssi);
     return furthestBeacon;
@@ -105,8 +105,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             [self.locationManager requestWhenInUseAuthorization];
         }
         else if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
-            UIViewController *currentVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-            [UIAlertController showAlertInViewController:currentVC withTitle:@"Enable Location Services" message:@"To use this feature, this app needs Location services. \n\n 1. Click on the Settings button below \n 2. Set 'Location' to 'While Using...' \n3. Come back into this app" cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@[@"Settings", @"Cancel"] tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+            [UIAlertController showAlertInViewController:[self topMostController] withTitle:@"Enable Location Services" message:@"To use this feature, this app needs Location services. \n\n 1. Click on the Settings button below \n 2. Set 'Location' to 'While Using...' \n3. Come back into this app" cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@[@"Settings", @"Cancel"] tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                 if (buttonIndex == 2) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
                 }
@@ -122,8 +121,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             [self.locationManager requestAlwaysAuthorization];
         }
         else if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
-            UIViewController *currentVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-            [UIAlertController showAlertInViewController:currentVC withTitle:@"Enable Location Services" message:@"To use this feature, this app needs permission to obtain your location in the background. \n\n 1. Click on the Settings button below \n 2. Set 'Location' to 'Always' \n3. Come back into this app" cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@[@"Settings", @"Cancel"] tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+            [UIAlertController showAlertInViewController:[self topMostController] withTitle:@"Enable Location Services" message:@"To use this feature, this app needs permission to obtain your location in the background. \n\n 1. Click on the Settings button below \n 2. Set 'Location' to 'Always' \n3. Come back into this app" cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@[@"Settings", @"Cancel"] tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                 if (buttonIndex == 2) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
                 }
@@ -264,6 +262,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     if ([self.delegate respondsToSelector:@selector(didDetermineState:forRegion:)]) {
         [self.delegate didDetermineState:state forRegion:region];
     }
+}
+
+#pragma mark UIViewController Helper methods (for showing UIAlertController)
+- (UIViewController *)topMostController {
+    UIWindow *topWndow = [UIApplication sharedApplication].keyWindow;
+    UIViewController *topController = topWndow.rootViewController;
+    
+    if (topController == nil)
+    {
+        // The windows in the array are ordered from back to front by window level; thus,
+        // the last window in the array is on top of all other app windows.
+        for (UIWindow *aWndow in [[UIApplication sharedApplication].windows reverseObjectEnumerator])
+        {
+            topController = aWndow.rootViewController;
+            if (topController)
+                break;
+        }
+    }
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    return topController;
 }
 
 @end
