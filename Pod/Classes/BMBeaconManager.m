@@ -52,7 +52,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 + (NSArray *)filterBeacons:(NSArray *)beacons byMajor:(NSNumber *)major byMinor:(NSNumber *)minor {
     NSPredicate *majorPredicate = [NSPredicate predicateWithFormat:@"SELF.major = %d", [major intValue]];
     NSPredicate *minorPredicate = [NSPredicate predicateWithFormat:@"SELF.minor = %d", [minor intValue]];
-    NSMutableArray *predicateArray;
+    NSMutableArray *predicateArray = [NSMutableArray new];
     if ([major integerValue] >= 0) {
         [predicateArray addObject:majorPredicate];
     }
