@@ -61,7 +61,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }
     NSCompoundPredicate *beaconsFilterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicateArray];
     NSArray *filteredBeacons = [beacons filteredArrayUsingPredicate:beaconsFilterPredicate];
-    DDLogVerbose(@"Filtered Beacons: - %ld Beacons found after filtering", (long) beacons.count);
+    DDLogVerbose(@"Filtered Beacons: - %ld Beacons found after filtering", (long) filteredBeacons.count);
     return filteredBeacons;
 }
 
