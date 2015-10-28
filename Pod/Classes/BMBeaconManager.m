@@ -7,7 +7,7 @@
 //
 
 #import "BMBeaconManager.h"
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface BMBeaconManager () <CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
