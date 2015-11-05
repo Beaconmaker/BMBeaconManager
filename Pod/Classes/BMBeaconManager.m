@@ -11,7 +11,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface BMBeaconManager () <CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
-
+@property (nonatomic, strong) NSMutableDictionary *errorReadings;
 @end
 
 @implementation BMBeaconManager
@@ -90,8 +90,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self) {
         self.locationManager = [CLLocationManager new];
         self.locationManager.delegate = self;
+        self.errorThreshold = @(0);
     }
     return self;
+}
+
+- (void)setErrorThreshold:(NSNumber *)errorThreshold {
+    _errorThreshold = errorThreshold;
+    self.errorReadings = [NSMutableDictionary new];
 }
 
 - (void)setRegions:(NSArray *)regions {
@@ -178,8 +184,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         DDLogVerbose(@" Maj:#%@ / Min:%@, Acc: %.2f:, RSSI: %ld", beacon.major, beacon.minor, beacon.accuracy, (long)beacon.rssi);
     }
     
-    if ([self.delegate respondsToSelector:@selector(didRangeBeacons:)]) {
-        [self.delegate didRangeBeacons:beacons];
+    if ([self.errorThreshold integerValue] > 0) {
+        NSMutableArray *filteredBeacons = [NSMutableArray new];
+        for (CLBeacon *beacon in beacons) {
+            NSString *beaconErrorKey = [NSString stringWithFormat:@"%@-%@-%@", [beacon.proximityUUID UUIDString], beacon.major, beacon.minor];
+            NSNumber *errorCount = [self.errorReadings objectForKey:beaconErrorKey];
+            
+            if (beacon.accuracy > 0) {
+                [self.errorReadings setObject:@(0) forKey:beaconErrorKey];
+                [filteredBeacons addObject:beacon];
+            } else {
+                [self.errorReadings setObject:@([errorCount integerValue]+1) forKey:beaconErrorKey];
+                if ([errorCount isEqualToNumber:self.errorThreshold]) {
+                    [filteredBeacons addObject:beacon];
+                }
+            }
+        }
+        if ([self.delegate respondsToSelector:@selector(didRangeBeacons:)]) {
+            [self.delegate didRangeBeacons:filteredBeacons];
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(didRangeBeacons:)]) {
+            [self.delegate didRangeBeacons:beacons];
+        }
     }
 }
 

@@ -25,6 +25,7 @@
 
 @interface BMBeaconManager : NSObject
 
+@property (strong, nonatomic) NSNumber *errorThreshold;
 @property (strong, nonatomic) NSArray *regions;
 
 + (BMBeaconManager *)sharedManager;
